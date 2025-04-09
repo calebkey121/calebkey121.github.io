@@ -2,11 +2,11 @@
 
 set -e  # Exit on any error
 
-echo "🏗️  Building site with Hugo..."
-hugo
-
 echo "🌳 Setting up worktree for gh-pages..."
 git worktree add -B gh-pages public gh-pages
+
+echo "🏗️  Building site with Hugo..."
+hugo
 
 echo "📦 Committing built files to gh-pages branch..."
 cd public
