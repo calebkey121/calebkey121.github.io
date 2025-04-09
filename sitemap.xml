@@ -2,17 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.org/</loc>
+    <loc>http://calebkey121.github.io/</loc>
     <lastmod>2025-04-08T18:31:40-05:00</lastmod>
   </url><url>
-    <loc>https://example.org/posts/my-game/</loc>
+    <loc>http://calebkey121.github.io/posts/my-game/</loc>
     <lastmod>2025-04-08T18:29:55-05:00</lastmod>
   </url><url>
-    <loc>https://example.org/posts/</loc>
+    <loc>http://calebkey121.github.io/posts/</loc>
     <lastmod>2025-04-08T18:29:55-05:00</lastmod>
   </url><url>
-    <loc>https://example.org/categories/</loc>
+    <loc>http://calebkey121.github.io/authors/</loc>
   </url><url>
-    <loc>https://example.org/tags/</loc>
+    <loc>http://calebkey121.github.io/categories/</loc>
+  </url><url>
+    <loc>http://calebkey121.github.io/series/</loc>
+  </url><url>
+    <loc>http://calebkey121.github.io/tags/</loc>
   </url>
 </urlset>
