@@ -6,14 +6,14 @@
     <description>Recent content in Blogs on Caleb Key</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Dec 2022 19:53:33 +0530</lastBuildDate>
+    <lastBuildDate>Thu, 10 Apr 2025 08:28:40 -0500</lastBuildDate>
     <atom:link href="https://calebkey121.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Render Math With Mathjax</title>
-      <link>https://calebkey121.github.io/blogs/math/</link>
-      <pubDate>Fri, 09 Dec 2022 19:53:33 +0530</pubDate>
-      <guid>https://calebkey121.github.io/blogs/math/</guid>
-      <description>&lt;h2 id=&#34;mathjax&#34;&gt;Mathjax&lt;/h2&gt;&#xA;&lt;p&gt;Math equations can be rendered using &lt;a href=&#34;https://www.mathjax.org&#34;&gt;Mathjax&lt;/a&gt; syntax with AMS symbol support.&lt;/p&gt;&#xA;&lt;p&gt;Optionally enable this on a per-page basis by adding &lt;code&gt;mathjax: true&lt;/code&gt; to your frontmatter.&lt;/p&gt;&#xA;&lt;p&gt;Then, use &lt;code&gt;$$ ... $$&lt;/code&gt; on a line by itself to render a block equation:&lt;/p&gt;&#xA;&lt;p&gt;$$ | Pr_{x \leftarrow P_{1}} [A(x) = 1] - Pr_{x \leftarrow P_{2}} [A(x) = 1] | &amp;lt; \text{negligible} $$&lt;/p&gt;&#xA;&lt;p&gt;The raw version is:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$$ | Pr_{x \leftarrow P_{1}} [A(x) = 1] - Pr_{x \leftarrow P_{2}} [A(x) = 1] | &amp;lt; \text{negligible} $$&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Write in-line equations with &lt;code&gt;\\( ... \\)&lt;/code&gt; , like \( x^n / y \) . It&amp;rsquo;s easy!&lt;/p&gt;</description>
+      <title>Pandas</title>
+      <link>https://calebkey121.github.io/blogs/pandas/</link>
+      <pubDate>Thu, 10 Apr 2025 08:28:40 -0500</pubDate>
+      <guid>https://calebkey121.github.io/blogs/pandas/</guid>
+      <description>&lt;p&gt;It can be a bit overwhelming how ubiquitous AI has become in everyday conversations. When I first started studying AI at Texas A&amp;amp;M, part of the excitement was that it felt like an &amp;ldquo;up-and-coming&amp;rdquo; field, even though, looking back, the signs were already clear that the technology was primed to explode, leading directly to the boom we saw in 2023. You might assume someone beginning their career in AI would feel thrilled that nearly every company is eager to brand itself as an &amp;ldquo;AI company,&amp;rdquo; but truthfully, I miss the simpler days when everyone wasn&amp;rsquo;t talking about whether computers are &amp;ldquo;alive.&amp;rdquo;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
