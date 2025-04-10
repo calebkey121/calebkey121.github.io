@@ -308,10 +308,12 @@ params:
         links:
           - icon: fab fa-github
             url: https://github.com/yourusername/handwritten-digit-recognition
+          - icon: fas fa-newspaper
+            url: /blogs/hdr
 
       - title: CPU Cache Optimization via Genetic Algorithms
         content: Created a C++ simulation tool using genetic algorithms to optimize CPU cache eviction strategies. Explored the performance of different crossover types and mutation rates in high-traffic environments.
-        image: /images/projects/genetic.png
+        image: /images/projects/ga.png
         featured:
           name: View Code
           link: https://github.com/yourusername/cache-eviction-ga
@@ -322,6 +324,8 @@ params:
         links:
           - icon: fab fa-github
             url: https://github.com/yourusername/cache-eviction-ga
+          - icon: fas fa-newspaper
+            url: /blogs/ga
 
       - title: Card-Based Strategy Game with Reinforcement Learning
         content: Developed a full-stack card game featuring a React frontend and Flask backend, enhanced with reinforcement learning models that allow AI agents to autonomously play against each other.
@@ -330,13 +334,15 @@ params:
           name: View Code
           link: https://github.com/yourusername/rl-card-game
         badges:
-          - "React"
+          - "Godot"
           - "Flask"
           - "Reinforcement Learning"
           - "Python"
         links:
           - icon: fab fa-github
             url: https://github.com/yourusername/rl-card-game
+          - icon: fas fa-newspaper
+            url: /blogs/calebstone
 
   #Contact
   contact:
