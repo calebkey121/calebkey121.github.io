@@ -2,25 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calebkey121.github.io/blogs/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
     <loc>https://calebkey121.github.io/</loc>
-    <lastmod>2025-04-10T10:17:04-05:00</lastmod>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/blogs/calebstone/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/flask/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/godot/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/blogs/hdr/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/image-generation/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/keras/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/neural-networks/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/blogs/pandas/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/python/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/pytorch/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/reflections/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/tensorflow/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/tags/tkinter/</loc>
+    <lastmod>2025-04-10T12:02:03-05:00</lastmod>
   </url><url>
     <loc>https://calebkey121.github.io/gallery/</loc>
     <lastmod>2025-04-10T10:17:04-05:00</lastmod>
   </url><url>
-    <loc>https://calebkey121.github.io/blogs/</loc>
+    <loc>https://calebkey121.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2025-04-10T08:28:40-05:00</lastmod>
   </url><url>
-    <loc>https://calebkey121.github.io/tags/image-generation/</loc>
+    <loc>https://calebkey121.github.io/blogs/ga/</loc>
     <lastmod>2025-04-10T08:28:40-05:00</lastmod>
   </url><url>
-    <loc>https://calebkey121.github.io/blogs/pandas/</loc>
+    <loc>https://calebkey121.github.io/tags/genetic-algorithms/</loc>
     <lastmod>2025-04-10T08:28:40-05:00</lastmod>
   </url><url>
-    <loc>https://calebkey121.github.io/tags/reflections/</loc>
-    <lastmod>2025-04-10T08:28:40-05:00</lastmod>
-  </url><url>
-    <loc>https://calebkey121.github.io/tags/</loc>
+    <loc>https://calebkey121.github.io/tags/optimization/</loc>
     <lastmod>2025-04-10T08:28:40-05:00</lastmod>
   </url><url>
     <loc>https://calebkey121.github.io/categories/</loc>

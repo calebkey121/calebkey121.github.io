@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reinforcement Learning on Caleb Key</title>
+    <link>https://calebkey121.github.io/tags/reinforcement-learning/</link>
+    <description>Recent content in Reinforcement Learning on Caleb Key</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 10 Apr 2025 12:02:03 -0500</lastBuildDate>
+    <atom:link href="https://calebkey121.github.io/tags/reinforcement-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Calebstone</title>
+      <link>https://calebkey121.github.io/blogs/calebstone/</link>
+      <pubDate>Thu, 10 Apr 2025 12:02:03 -0500</pubDate>
+      <guid>https://calebkey121.github.io/blogs/calebstone/</guid>
+      <description>&lt;p&gt;Developed a card-based strategy card game featuring a Godot frontend and Flask backend, enhanced with reinforcement learning models that allow AI agents to autonomously play against each other.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

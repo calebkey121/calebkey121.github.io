@@ -6,8 +6,29 @@
     <description>Recent content on Caleb Key</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Apr 2025 10:17:04 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 10 Apr 2025 12:02:03 -0500</lastBuildDate>
     <atom:link href="https://calebkey121.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Calebstone</title>
+      <link>https://calebkey121.github.io/blogs/calebstone/</link>
+      <pubDate>Thu, 10 Apr 2025 12:02:03 -0500</pubDate>
+      <guid>https://calebkey121.github.io/blogs/calebstone/</guid>
+      <description>&lt;p&gt;Developed a card-based strategy card game featuring a Godot frontend and Flask backend, enhanced with reinforcement learning models that allow AI agents to autonomously play against each other.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>HDR</title>
+      <link>https://calebkey121.github.io/blogs/hdr/</link>
+      <pubDate>Thu, 10 Apr 2025 12:02:03 -0500</pubDate>
+      <guid>https://calebkey121.github.io/blogs/hdr/</guid>
+      <description>&lt;p&gt;Built a digit recognition system with a custom neural network from scratch, achieving 95% accuracy on the MNIST dataset. Included a Tkinter-based UI for real-time digit drawing and inference.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Pandas</title>
+      <link>https://calebkey121.github.io/blogs/pandas/</link>
+      <pubDate>Thu, 10 Apr 2025 12:02:03 -0500</pubDate>
+      <guid>https://calebkey121.github.io/blogs/pandas/</guid>
+      <description>&lt;p&gt;It can be a bit overwhelming how ubiquitous AI has become in everyday conversations. When I first started studying AI at Texas A&amp;amp;M, part of the excitement was that it felt like an &amp;ldquo;up-and-coming&amp;rdquo; field, even though, looking back, the signs were already clear that the technology was primed to explode, leading directly to the boom we saw in 2023. You might assume someone beginning their career in AI would feel thrilled that nearly every company is eager to brand itself as an &amp;ldquo;AI company,&amp;rdquo; but truthfully, I miss the simpler days when everyone wasn&amp;rsquo;t talking about whether computers are &amp;ldquo;alive.&amp;rdquo;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Image Gallery</title>
       <link>https://calebkey121.github.io/gallery/</link>
@@ -16,11 +37,11 @@
       <description></description>
     </item>
     <item>
-      <title>Pandas</title>
-      <link>https://calebkey121.github.io/blogs/pandas/</link>
+      <title>Cache Optimization via GA</title>
+      <link>https://calebkey121.github.io/blogs/ga/</link>
       <pubDate>Thu, 10 Apr 2025 08:28:40 -0500</pubDate>
-      <guid>https://calebkey121.github.io/blogs/pandas/</guid>
-      <description>&lt;p&gt;It can be a bit overwhelming how ubiquitous AI has become in everyday conversations. When I first started studying AI at Texas A&amp;amp;M, part of the excitement was that it felt like an &amp;ldquo;up-and-coming&amp;rdquo; field, even though, looking back, the signs were already clear that the technology was primed to explode, leading directly to the boom we saw in 2023. You might assume someone beginning their career in AI would feel thrilled that nearly every company is eager to brand itself as an &amp;ldquo;AI company,&amp;rdquo; but truthfully, I miss the simpler days when everyone wasn&amp;rsquo;t talking about whether computers are &amp;ldquo;alive.&amp;rdquo;&lt;/p&gt;</description>
+      <guid>https://calebkey121.github.io/blogs/ga/</guid>
+      <description>&lt;p&gt;Created a C++ simulation tool using genetic algorithms to optimize CPU cache eviction strategies. Explored the performance of different crossover types and mutation rates in high-traffic environments.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

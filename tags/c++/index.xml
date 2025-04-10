@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C&#43;&#43; on Caleb Key</title>
+    <link>https://calebkey121.github.io/tags/c&#43;&#43;/</link>
+    <description>Recent content in C&#43;&#43; on Caleb Key</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 10 Apr 2025 08:28:40 -0500</lastBuildDate>
+    <atom:link href="https://calebkey121.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cache Optimization via GA</title>
+      <link>https://calebkey121.github.io/blogs/ga/</link>
+      <pubDate>Thu, 10 Apr 2025 08:28:40 -0500</pubDate>
+      <guid>https://calebkey121.github.io/blogs/ga/</guid>
+      <description>&lt;p&gt;Created a C++ simulation tool using genetic algorithms to optimize CPU cache eviction strategies. Explored the performance of different crossover types and mutation rates in high-traffic environments.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
