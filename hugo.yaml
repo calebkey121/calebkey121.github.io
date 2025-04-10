@@ -300,14 +300,14 @@ params:
         image: /images/projects/hdr.png
         featured:
           name: View Code
-          link: https://github.com/yourusername/handwritten-digit-recognition
+          link: https://github.com/calebkey121/handwritten-digit-recognition
         badges:
           - "Python"
           - "Neural Networks"
           - "Tkinter"
         links:
           - icon: fab fa-github
-            url: https://github.com/yourusername/handwritten-digit-recognition
+            url: https://github.com/calebkey121/handwritten-digit-recognition
           - icon: fas fa-newspaper
             url: /blogs/hdr
 
@@ -316,14 +316,14 @@ params:
         image: /images/projects/ga.png
         featured:
           name: View Code
-          link: https://github.com/yourusername/cache-eviction-ga
+          link: https://github.com/calebkey121/genetic-algorithm
         badges:
           - "C++"
           - "Genetic Algorithms"
           - "Optimization"
         links:
           - icon: fab fa-github
-            url: https://github.com/yourusername/cache-eviction-ga
+            url: https://github.com/calebkey121/genetic-algorithm
           - icon: fas fa-newspaper
             url: /blogs/ga
 
@@ -332,7 +332,7 @@ params:
         image: /images/projects/calebstone.png
         featured:
           name: View Code
-          link: https://github.com/yourusername/rl-card-game
+          link: https://github.com/calebkey121/Calebstone
         badges:
           - "Godot"
           - "Flask"
@@ -340,7 +340,7 @@ params:
           - "Python"
         links:
           - icon: fab fa-github
-            url: https://github.com/yourusername/rl-card-game
+            url: https://github.com/calebkey121/Calebstone
           - icon: fas fa-newspaper
             url: /blogs/calebstone
 
