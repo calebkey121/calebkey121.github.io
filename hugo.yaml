@@ -136,7 +136,7 @@ params:
     intro: "Hi, my name is"
     title: "Caleb Key."
     subtitle: "I build programs that think with math"
-    content: "I'm an AI engineer with a background in computer engineering and a deep interest in large language models, reinforcement learning, and evolutionary algorithms. I enjoy building intelligent systems that solve meaningful problems and push the boundaries of applied machine learning."
+    content: "I'm an AI engineer with a background in computer engineering and a deep interest in large language models, reinforcement learning, and algorithms that learn. I enjoy building intelligent systems that solve meaningful problems and push the boundaries of applied machine learning."
     image: /images/me/shed.jpg
     bottomImage:
       enable: true
@@ -160,9 +160,9 @@ params:
   about:
     enable: true
     title: "About Me"
-    image: "/images/shed.jpg"
+    image: "/images/me/fall.jpg"
     content: |-
-      I’m an AI engineer with a background in computer engineering. My work blends applied artificial intelligence with real-world systems—especially in the areas of large language models, reinforcement learning, and evolutionary algorithms. I currently work in cyber operations, where I’ve helped build advanced AI tools, collaborative platforms, and optimization systems for high-impact applications.
+      I’m an AI engineer with a background in computer engineering. My work blends applied artificial intelligence with real-world. I currently work in cyber operations, where I’ve helped build advanced AI tools, collaborative platforms, and optimization systems for high-impact applications.
 
       I’m also pursuing graduate studies in artificial intelligence to deepen my theoretical foundation and continue building powerful, practical systems that make a difference.
     skills:
@@ -189,7 +189,7 @@ params:
           enable: true
           name: "View the project"
           url: "https://niprgpt.mil/"
-        content: "I am currently working as a software developer for the U.S. Airforce in San Antonio, TX. I am assigned to the 90th Cyber Operations Squadron at [Shadows Edge](https://www.shadowsedge.mil)."
+        content: "I am currently working as a software developer for the U.S. Airforce in San Antonio, TX. I am assigned to the 90th Cyber Operations Squadron at the <a href='https://www.shadowsedge.mil'><u>Shadow\'s Edge</u></a> software factory."
 
   #      - job: "Software Developer"
   #        company: "Amazon"
@@ -247,6 +247,7 @@ params:
         date: "2014 - 2018"
         GPA: "5.0 out of 5.0"
         featuredLink:
+          name: Click here! then 2018 -> July 2018 -> Last dropdown
           enable: true
           url: "https://www.mabankisd.net/page/dis.photogalleryarchive"
 

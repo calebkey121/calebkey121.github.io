@@ -9,6 +9,7 @@ galleryImages:
   - src: /images/blogs/pandas_new_1.png
   - src: /images/blogs/pandas_new_2.png
   - src: /images/me/shed.jpg
+  - src: /images/me/fall.jpg
 viewer: true
 viewerOptions: {
     title: false,
