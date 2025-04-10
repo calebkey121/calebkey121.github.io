@@ -2,21 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://calebkey121.github.io/</loc>
-    <lastmod>2025-04-08T18:31:40-05:00</lastmod>
+    <loc>https://calebkey121.github.io/blogs/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
   </url><url>
-    <loc>http://calebkey121.github.io/posts/my-game/</loc>
-    <lastmod>2025-04-08T18:29:55-05:00</lastmod>
+    <loc>https://calebkey121.github.io/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
   </url><url>
-    <loc>http://calebkey121.github.io/posts/</loc>
-    <lastmod>2025-04-08T18:29:55-05:00</lastmod>
+    <loc>https://calebkey121.github.io/tags/example/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
   </url><url>
-    <loc>http://calebkey121.github.io/authors/</loc>
+    <loc>https://calebkey121.github.io/tags/markdown-syntax/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
   </url><url>
-    <loc>http://calebkey121.github.io/categories/</loc>
+    <loc>https://calebkey121.github.io/tags/mathjax/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
   </url><url>
-    <loc>http://calebkey121.github.io/series/</loc>
+    <loc>https://calebkey121.github.io/blogs/math/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
   </url><url>
-    <loc>http://calebkey121.github.io/tags/</loc>
+    <loc>https://calebkey121.github.io/tags/</loc>
+    <lastmod>2022-12-09T19:53:33+05:30</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/gallery/</loc>
+    <lastmod>2022-06-25T18:35:46+05:30</lastmod>
+  </url><url>
+    <loc>https://calebkey121.github.io/categories/</loc>
   </url>
 </urlset>
