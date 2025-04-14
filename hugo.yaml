@@ -189,7 +189,7 @@ params:
           enable: true
           name: "View the project"
           url: "https://niprgpt.mil/"
-        content: "I am currently working as a software developer for the U.S. Airforce in San Antonio, TX. I am assigned to the 90th Cyber Operations Squadron at the <a href='https://www.shadowsedge.mil'><u>Shadow\'s Edge</u></a> software factory."
+        content: "I am currently working as a software developer for the U.S. Air Force in San Antonio, TX. I am assigned to the 90th Cyber Operations Squadron at the <a href='https://www.shadowsedge.mil'><u>Shadow\'s Edge</u></a> software factory."
 
   #      - job: "Software Developer"
   #        company: "Amazon"
@@ -312,7 +312,7 @@ params:
             url: /blogs/hdr
 
       - title: CPU Cache Optimization via Genetic Algorithms
-        content: Created a C++ simulation tool using genetic algorithms to optimize CPU cache eviction strategies. Explored the performance of different crossover types and mutation rates in high-traffic environments.
+        content: Implemented a Genetic Algorithm in C++ to find optimal static cache indexing schemes. The goal was to minimize evictions, evaluated via an LRU cache simulation using representative memory address traces. Experimented with GA parameters, including various crossover types (UX, 2PX, SX, BAX) and mutation rates, analyzing their impact on solution quality.
         image: /images/projects/ga.png
         featured:
           name: View Code
@@ -321,6 +321,9 @@ params:
           - "C++"
           - "Genetic Algorithms"
           - "Optimization"
+          - "Evolutionary Computation"
+          - "Simulation Modeling"
+          - "Algorithm Implementation"
         links:
           - icon: fab fa-github
             url: https://github.com/calebkey121/genetic-algorithm

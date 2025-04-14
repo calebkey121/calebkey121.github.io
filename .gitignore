@@ -49,3 +49,5 @@ yarn-error.log*
 public/
 resources/_gen/
 .hugo_build.lock
+
+repomix-output.*
