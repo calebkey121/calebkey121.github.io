@@ -320,3 +320,17 @@
 }
 
 /* Singlepage scroll progress end */
+
+
+/* Control size of blog featured images */
+.blog-featured-img {
+  max-height: 400px; /* Adjust this value to your preferred maximum height */
+  width: auto;
+  object-fit: contain; /* This keeps the image proportions */
+}
+
+/* Optional: Add some additional styling for the featured image container */
+.featured-image {
+  text-align: center;
+  margin-bottom: 2rem;
+}
