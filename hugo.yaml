@@ -298,6 +298,7 @@ params:
       - title: Handwritten Digit Recognition
         content: Built a digit recognition system with a custom neural network from scratch, achieving 95% accuracy on the MNIST dataset. Included a Tkinter-based UI for real-time digit drawing and inference.
         image: /images/projects/hdr.png
+        cardLink: /blogs/hdr
         featured:
           name: View Code
           link: https://github.com/calebkey121/handwritten-digit-recognition
@@ -310,10 +311,13 @@ params:
             url: https://github.com/calebkey121/handwritten-digit-recognition
           - icon: fas fa-newspaper
             url: /blogs/hdr
+          - icon: fas fa-pen
+            url: /hdr/
 
       - title: CPU Cache Optimization via Genetic Algorithms
         content: Implemented a Genetic Algorithm in C++ to find optimal static cache indexing schemes. The goal was to minimize evictions, evaluated via an LRU cache simulation using representative memory address traces. Experimented with GA parameters, including various crossover types (UX, 2PX, SX, BAX) and mutation rates, analyzing their impact on solution quality.
         image: /images/projects/ga.png
+        cardLink: /blogs/ga
         featured:
           name: View Code
           link: https://github.com/calebkey121/genetic-algorithm
@@ -322,7 +326,6 @@ params:
           - "Genetic Algorithms"
           - "Optimization"
           - "Evolutionary Computation"
-          - "Simulation Modeling"
           - "Algorithm Implementation"
         links:
           - icon: fab fa-github
@@ -333,6 +336,7 @@ params:
       - title: Card-Based Strategy Game with Reinforcement Learning
         content: Developed a full-stack card game featuring a React frontend and Flask backend, enhanced with reinforcement learning models that allow AI agents to autonomously play against each other.
         image: /images/projects/calebstone.png
+        cardLink: /blogs/calebstone
         featured:
           name: View Code
           link: https://github.com/calebkey121/Calebstone
