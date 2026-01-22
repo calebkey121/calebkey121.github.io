@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>28x28 Grid Digit Editor</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { margin: 0; padding: 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .row { display: flex; gap: 24px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+    .panel { display: grid; gap: 12px; }
+    canvas { border: 1px solid #999; border-radius: 8px; touch-action: none; }
+    .controls { display: grid; gap: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 10px; min-width: 320px; }
+    .controls label { display: grid; gap: 6px; font-size: 14px; }
+    .controls input[type="range"] { width: 260px; }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    button { padding: 8px 12px; border-radius: 10px; border: 1px solid #ccc; background: #fff; cursor: pointer; }
+    button:active { transform: translateY(1px); }
+    .hint { font-size: 13px; color: #555; line-height: 1.35; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+  </style>
+</head>
+<body>
+  <main class="container">
+  <h2>28×28 Cell Grid Digit Editor</h2>
+  <div class="hint">
+    Draw by clicking/dragging. Each cell is a pixel you will send to the server.
+    <br/>Tips: use <span class="mono">Eraser</span> or hold <span class="mono">Shift</span> while drawing to erase. Try different brush sizes/softness.
+  </div>
+
+  <div class="row" style="margin-top:16px;">
+    <div class="panel">
+      <canvas id="grid" width="560" height="560"></canvas>
+      <div class="hint">Editable 28×28 grid (each cell is sent directly to the model).</div>
+    </div>
+
+    <div class="controls">
+      <label>
+        Brush radius (cells): <span id="radiusVal" class="mono">1</span>
+        <input id="radius" type="range" min="0" max="4" value="1" />
+      </label>
+
+      <label>
+        Softness (neighbor falloff): <span id="softVal" class="mono">0.55</span>
+        <input id="soft" type="range" min="0" max="1" value="0.55" step="0.05" />
+      </label>
+
+      <label>
+        Strength (per stroke): <span id="strengthVal" class="mono">0.65</span>
+        <input id="strength" type="range" min="0.1" max="1" value="0.65" step="0.05" />
+      </label>
+
+      <label>
+        <input id="gridlines" type="checkbox" checked />
+        Show gridlines
+      </label>
+
+      <label>
+        <input id="invert" type="checkbox" />
+        Invert output (0↔255)
+      </label>
+
+      <label>
+        Model subset (optional):
+        <select id="model">
+          <option value="" selected>All models (recommended)</option>
+          <option value="scratch:my_model">Scratch (scratch:my_model)</option>
+          <option value="keras">All Keras models (prefix: keras:)</option>
+          <option value="torch">All Torch models (prefix: torch:)</option>
+        </select>
+      </label>
+
+
+      <div id="result" style="border: 1px solid #ddd; border-radius: 10px; padding: 12px; display: grid; gap: 10px;">
+        <div class="hint">Prediction results will appear here.</div>
+      </div>
+
+      <div id="status" class="hint">Ready.</div>
+
+      <div class="btns">
+        <button id="mode">Mode: Draw</button>
+        <button id="clear">Clear</button>
+        <button id="random">Random test</button>
+        <button id="predict">Predict</button>
+      </div>
+    </div>
+  </div>
+  </main>
+
+<script>
+(() => {
+  // ====== Config ======
+  const W = 28, H = 28;
+  // ====== API endpoint ======
+  const USE_LOCAL_API = false;
+  const LOCAL_API_BASE = 'http://localhost:8080';
+  const DEPLOYED_API_BASE = 'https://digit-api-798133670061.us-south1.run.app';
+  const API_BASE = USE_LOCAL_API ? LOCAL_API_BASE : DEPLOYED_API_BASE;
+  const grid = new Uint8Array(W * H); // 0..255, row-major y*W + x
+
+  // Display sizes (main canvas is bigger for easier editing)
+  const mainCanvas = document.getElementById('grid');
+  const ctx = mainCanvas.getContext('2d');
+
+  const cellSize = Math.floor(mainCanvas.width / W); // assumes square + divisible
+
+  // Controls
+  const radiusEl = document.getElementById('radius');
+  const softEl = document.getElementById('soft');
+  const strengthEl = document.getElementById('strength');
+  const gridlinesEl = document.getElementById('gridlines');
+  const invertEl = document.getElementById('invert');
+  const radiusVal = document.getElementById('radiusVal');
+  const softVal = document.getElementById('softVal');
+  const strengthVal = document.getElementById('strengthVal');
+
+  const modeBtn = document.getElementById('mode');
+  const clearBtn = document.getElementById('clear');
+  const randomBtn = document.getElementById('random');
+  const predictBtn = document.getElementById('predict');
+  const modelEl = document.getElementById('model');
+  const statusEl = document.getElementById('status');
+
+  const resultEl = document.getElementById('result');
+
+  let isErasing = false;
+
+  function setStatus(msg) {
+    statusEl.textContent = msg;
+  }
+
+
+  function fmtMs(x) {
+    if (typeof x !== 'number' || !isFinite(x)) return '—';
+    return `${x.toFixed(1)} ms`;
+  }
+
+  function renderResult(data) {
+    // Basic summary + per-model table.
+    const ens = data.ensemble || {};
+    const best = data.best_single_model || {};
+    const models = Array.isArray(data.models) ? data.models : [];
+
+    const rows = models.map(m => {
+      const mid = m.model_id ?? '';
+      const pred = m.predicted ?? '—';
+      const conf = (typeof m.confidence === 'number') ? m.confidence.toFixed(3) : '—';
+      const lat = fmtMs(m.latency_ms);
+      return `<tr>
+        <td class="mono">${mid}</td>
+        <td class="mono">${pred}</td>
+        <td class="mono">${conf}</td>
+        <td class="mono">${lat}</td>
+      </tr>`;
+    }).join('');
+
+    resultEl.innerHTML = `
+      <div>
+        <div><strong>Ensemble prediction:</strong> <span class="mono">${ens.predicted ?? '—'}</span> (conf <span class="mono">${(typeof ens.confidence === 'number') ? ens.confidence.toFixed(3) : '—'}</span>)</div>
+        <div class="hint">Total: <span class="mono">${fmtMs(data.latency_ms_total)}</span> • Server overhead: <span class="mono">${fmtMs(data.server_overhead_ms)}</span></div>
+        <div class="hint">Best single model: <span class="mono">${best.model_id ?? '—'}</span> → <span class="mono">${best.predicted ?? '—'}</span></div>
+      </div>
+
+      <div>
+        <div class="hint" style="margin-bottom:6px;">Per-model results</div>
+        <div style="overflow:auto;">
+          <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+              <tr>
+                <th style="text-align:left; border-bottom:1px solid #eee; padding:6px;">model_id</th>
+                <th style="text-align:left; border-bottom:1px solid #eee; padding:6px;">pred</th>
+                <th style="text-align:left; border-bottom:1px solid #eee; padding:6px;">conf</th>
+                <th style="text-align:left; border-bottom:1px solid #eee; padding:6px;">latency</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows || `<tr><td colspan="4" class="hint" style="padding:6px;">No model results returned.</td></tr>`}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderError(msg) {
+    resultEl.innerHTML = `<div class="hint">${msg}</div>`;
+  }
+
+  // ====== Helpers ======
+  function idx(x, y) { return y * W + x; }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  function cellFromEvent(e) {
+    const r = mainCanvas.getBoundingClientRect();
+    const x = Math.floor((e.clientX - r.left) / cellSize);
+    const y = Math.floor((e.clientY - r.top) / cellSize);
+    return { x: clamp(x, 0, W - 1), y: clamp(y, 0, H - 1) };
+  }
+
+  // Bresenham line to avoid gaps on fast drags
+  function drawLine(x0, y0, x1, y1, fn) {
+    let dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    let dy = -Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    let err = dx + dy;
+    while (true) {
+      fn(x0, y0);
+      if (x0 === x1 && y0 === y1) break;
+      const e2 = 2 * err;
+      if (e2 >= dy) { err += dy; x0 += sx; }
+      if (e2 <= dx) { err += dx; y0 += sy; }
+    }
+  }
+
+  function applyBrush(cx, cy, erase) {
+    const r = parseInt(radiusEl.value, 10);
+    const softness = parseFloat(softEl.value);     // 0..1
+    const strength = parseFloat(strengthEl.value); // 0.1..1
+
+    // Simple radial falloff kernel in "cell space"
+    // r=0 => just the cell itself
+    const maxDist = Math.max(1e-6, r);
+    const baseDelta = Math.round(255 * strength);
+
+    for (let oy = -r; oy <= r; oy++) {
+      for (let ox = -r; ox <= r; ox++) {
+        const x = cx + ox, y = cy + oy;
+        if (x < 0 || x >= W || y < 0 || y >= H) continue;
+        const d = Math.hypot(ox, oy);
+        if (d > r) continue;
+
+        // falloff: center=1, edge ~ (1-softness)
+        const t = (r === 0) ? 1 : (1 - (d / maxDist));
+        const weight = (1 - softness) + softness * t; // blend between flat and tapered
+        const delta = Math.round(baseDelta * weight);
+
+        const i = idx(x, y);
+        if (erase) {
+          grid[i] = (delta >= grid[i]) ? 0 : (grid[i] - delta);
+        } else {
+          const v = grid[i] + delta;
+          grid[i] = v > 255 ? 255 : v;
+        }
+      }
+    }
+  }
+
+  function render() {
+    // Background
+    ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+    // Draw cells
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const v = grid[idx(x, y)];
+        // grayscale: black bg with white ink
+        ctx.fillStyle = `rgb(${v},${v},${v})`;
+        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
+    }
+
+    // Gridlines
+    if (gridlinesEl.checked) {
+      ctx.save();
+      ctx.globalAlpha = 0.18;
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= W; x++) {
+        ctx.beginPath();
+        ctx.moveTo(x * cellSize + 0.5, 0);
+        ctx.lineTo(x * cellSize + 0.5, H * cellSize);
+        ctx.stroke();
+      }
+      for (let y = 0; y <= H; y++) {
+        ctx.beginPath();
+        ctx.moveTo(0, y * cellSize + 0.5);
+        ctx.lineTo(W * cellSize, y * cellSize + 0.5);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+
+  // Future: send this to your server
+  function exportedPixels() {
+    // returns a normal Array of 784 ints (0..255), optionally inverted
+    if (!invertEl.checked) return Array.from(grid);
+    const arr = new Array(grid.length);
+    for (let i = 0; i < grid.length; i++) arr[i] = 255 - grid[i];
+    return arr;
+  }
+
+  function getPayload() {
+    const pixels = exportedPixels();
+
+    // modelEl is an optional subset selector.
+    // "" => run all models.
+    // "scratch:my_model" => single exact model id.
+    // "keras" or "torch" => subset by prefix.
+    const subset = (modelEl.value || "").trim();
+    let model_subset = undefined;
+    if (subset) {
+      if (subset === 'keras') {
+        // Prefix filter will be applied client-side by expanding from /models (optional later).
+        // For now, send a marker; server will ignore unknown ids, so we won't do that.
+        // Instead we treat this as "all" until we implement dynamic subset resolution.
+        model_subset = undefined;
+      } else if (subset === 'torch') {
+        model_subset = undefined;
+      } else {
+        model_subset = [subset];
+      }
+    }
+
+    return {
+      pixels,
+      invert: invertEl.checked ? true : undefined,
+      model_subset
+    };
+  }
+
+  // ====== Interaction ======
+  let drawing = false;
+  let last = null;
+
+  mainCanvas.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    mainCanvas.setPointerCapture(e.pointerId);
+    drawing = true;
+
+    const erase = isErasing || e.shiftKey || e.button === 2;
+    const {x, y} = cellFromEvent(e);
+    applyBrush(x, y, erase);
+    last = {x, y};
+    render();
+  });
+
+  mainCanvas.addEventListener('pointermove', (e) => {
+    if (!drawing) return;
+    e.preventDefault();
+
+    const erase = isErasing || e.shiftKey;
+    const {x, y} = cellFromEvent(e);
+
+    if (last && (last.x !== x || last.y !== y)) {
+      drawLine(last.x, last.y, x, y, (lx, ly) => applyBrush(lx, ly, erase));
+      last = {x, y};
+      render();
+    }
+  });
+
+  function endDraw() { drawing = false; last = null; }
+  mainCanvas.addEventListener('pointerup', endDraw);
+  mainCanvas.addEventListener('pointercancel', endDraw);
+  mainCanvas.addEventListener('pointerleave', endDraw);
+
+  // Disable context menu (right click erase would trigger it)
+  mainCanvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  // ====== Controls ======
+  function syncLabels() {
+    radiusVal.textContent = radiusEl.value;
+    softVal.textContent = parseFloat(softEl.value).toFixed(2);
+    strengthVal.textContent = parseFloat(strengthEl.value).toFixed(2);
+  }
+
+  radiusEl.addEventListener('input', () => { syncLabels(); });
+  softEl.addEventListener('input', () => { syncLabels(); });
+  strengthEl.addEventListener('input', () => { syncLabels(); });
+
+  gridlinesEl.addEventListener('change', () => { render(); });
+  invertEl.addEventListener('change', () => { setStatus('Ready.'); });
+
+  modeBtn.addEventListener('click', () => {
+    isErasing = !isErasing;
+    modeBtn.textContent = isErasing ? "Mode: Erase" : "Mode: Draw";
+    setStatus(isErasing ? 'Eraser mode.' : 'Draw mode.');
+  });
+
+  clearBtn.addEventListener('click', () => {
+    grid.fill(0);
+    render();
+  });
+
+  randomBtn.addEventListener('click', () => {
+    // quick test pattern that looks vaguely digit-like sometimes
+    grid.fill(0);
+    for (let i = 0; i < 220; i++) {
+      const x = Math.floor(Math.random() * W);
+      const y = Math.floor(Math.random() * H);
+      grid[idx(x,y)] = Math.floor(120 + Math.random() * 135);
+    }
+    render();
+  });
+
+  predictBtn.addEventListener('click', async () => {
+    const base = API_BASE;
+    if (!base || base.includes('YOUR_CLOUD_RUN_URL_HERE')) {
+      setStatus('Set DEPLOYED_API_BASE in the script when you deploy.');
+      return;
+    }
+
+    const payload = getPayload();
+    const url = `${base}/predict`;
+
+    setStatus('Predicting...');
+    renderError('Predicting...');
+
+    try {
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(`HTTP ${resp.status}: ${text}`);
+      }
+
+      const data = await resp.json();
+      renderResult(data);
+      setStatus('Done.');
+    } catch (err) {
+      console.error(err);
+      renderError(`Request failed. If using Local mode, ensure your API is running at http://localhost:8080. Error: ${err.message || err}`);
+      setStatus('Request failed.');
+    }
+  });
+
+
+  // ====== Init ======
+  syncLabels();
+  render();
+  setStatus('Ready.');
+})();
+</script>
+</body>
+</html>
