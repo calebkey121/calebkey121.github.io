@@ -65,10 +65,10 @@
       <label>
         Model Selection:
         <select id="model">
-          <option value="all" selected>All Models (Expect 10–20 second wait time)</option>
-          <option value="scratch">Custom Scratch Model (Expect 10–20 second wait time)</option>
-          <option value="keras">TensorFlow Model (Expect 10–20 second wait time)</option>
-          <option value="torch">Torch Model (Expect 10–20 second wait time)</option>
+          <option value="all" selected>All Models (Expect ~20 second wait time)</option>
+          <option value="scratch">Custom Scratch Model (Expect ~20 second wait time)</option>
+          <option value="keras">TensorFlow Model (Expect ~20 second wait time)</option>
+          <option value="torch">Torch Model (Expect ~20 second wait time)</option>
         </select>
       </label>
 
@@ -82,7 +82,7 @@
       <div class="btns">
         <button id="mode">Mode: Draw</button>
         <button id="clear">Clear</button>
-        <button id="random">Random test</button>
+        <button id="random">Random training example</button>
         <button id="predict">Predict</button>
       </div>
     </div>
@@ -124,6 +124,43 @@
   const statusEl = document.getElementById('status');
 
   const resultEl = document.getElementById('result');
+
+  // ====== Training examples (MNIST subset) ======
+  // Expected file format (to be generated later):
+  // {
+  //   "examples": [
+  //     {"label": 5, "pixels": [0..255 x784]},
+  //     ...
+  //   ]
+  // }
+  let MNIST = null;
+  async function loadMnistExamples() {
+    if (MNIST) return MNIST;
+    try {
+      const resp = await fetch('./mnist_examples.json', { cache: 'no-cache' });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      if (!data || !Array.isArray(data.examples)) {
+        throw new Error('Invalid mnist_examples.json format (missing examples array).');
+      }
+      MNIST = data.examples;
+      return MNIST;
+    } catch (e) {
+      console.error(e);
+      MNIST = null;
+      return null;
+    }
+  }
+
+  function setGridFromPixels(pixels) {
+    if (!Array.isArray(pixels) || pixels.length !== W * H) {
+      throw new Error(`pixels must be an array of length ${W * H}`);
+    }
+    for (let i = 0; i < W * H; i++) {
+      const v = pixels[i] | 0;
+      grid[i] = v < 0 ? 0 : (v > 255 ? 255 : v);
+    }
+  }
 
   let isErasing = false;
 
@@ -368,15 +405,25 @@
     render();
   });
 
-  randomBtn.addEventListener('click', () => {
-    // quick test pattern that looks vaguely digit-like sometimes
-    grid.fill(0);
-    for (let i = 0; i < 220; i++) {
-      const x = Math.floor(Math.random() * W);
-      const y = Math.floor(Math.random() * H);
-      grid[idx(x,y)] = Math.floor(120 + Math.random() * 135);
+  randomBtn.addEventListener('click', async () => {
+    setStatus('Loading training examples…');
+    const examples = await loadMnistExamples();
+    if (!examples || examples.length === 0) {
+      setStatus('Training examples not found. Add mnist_examples.json next to this page.');
+      renderError('Training examples not found. Expected ./mnist_examples.json with {"examples":[{"label":0,"pixels":[...784]}]}');
+      return;
     }
-    render();
+
+    const ex = examples[Math.floor(Math.random() * examples.length)];
+    try {
+      setGridFromPixels(ex.pixels);
+      render();
+      setStatus(`Loaded training example (label ${ex.label}).`);
+    } catch (e) {
+      console.error(e);
+      setStatus('Failed to load training example.');
+      renderError(`Failed to load training example: ${e.message || e}`);
+    }
   });
 
   predictBtn.addEventListener('click', async () => {
