@@ -6,13 +6,7 @@
             {{ range .Site.Params.projects.items }}
             <div class="col-lg-4 col-md-6 my-3">
                 <div class="card my-3 h-100" title="{{ .title }}">
-                    {{ if .links }}
-                    <a href="{{ (index .links 0 | default dict).url | default "#" }}" class="card-content-link">
-                    {{ else if .featured }}
-                    <a href="{{ .featured.link }}" class="card-content-link">
-                    {{ else }}
-                    <a href="#" class="card-content-link">
-                    {{ end }}
+                        <a href="{{ .cardLink }}" class="card-content-link">
                         <div class="card-head">
                             <img class="card-img-top" src="{{ .image }}" alt="{{ .title }}">
                         </div>
