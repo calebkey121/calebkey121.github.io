@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>28x28 Grid Digit Editor</title>
+  <title>Handwritten Digit Recognition</title>
   <style>
     :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     body { margin: 0; padding: 24px; }
@@ -23,16 +23,17 @@
 </head>
 <body>
   <main class="container">
-  <h2>28×28 Cell Grid Digit Editor</h2>
+  <h2>Handwritten Digit Recognition</h2>
   <div class="hint">
-    Draw by clicking/dragging. Each cell is a pixel you will send to the server.
+    Draw by clicking/dragging.
     <br/>Tips: use <span class="mono">Eraser</span> or hold <span class="mono">Shift</span> while drawing to erase. Try different brush sizes/softness.
+    <br/>Heads up: This demo is hosted on Cloud Run (free tier). Requests may experience noticeable startup latency due to server cold starts.
   </div>
 
   <div class="row" style="margin-top:16px;">
     <div class="panel">
       <canvas id="grid" width="560" height="560"></canvas>
-      <div class="hint">Editable 28×28 grid (each cell is sent directly to the model).</div>
+      <div class="hint">Editable 28×28 grid.</div>
     </div>
 
     <div class="controls">
