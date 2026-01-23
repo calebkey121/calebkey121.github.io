@@ -390,6 +390,11 @@
 
     setStatus('Predicting...');
     renderError('Predicting...');
+    const tStart = performance.now();
+    let timerId = setInterval(() => {
+      const secs = (performance.now() - tStart) / 1000;
+      setStatus(`Predicting… ${secs.toFixed(1)}s`);
+    }, 100);
 
     try {
       const resp = await fetch(url, {
@@ -404,9 +409,15 @@
       }
 
       const data = await resp.json();
+      clearInterval(timerId);
+      timerId = null;
       renderResult(data);
-      setStatus('Done.');
+      setStatus(`Done in ${((performance.now() - tStart) / 1000).toFixed(1)}s.`);
     } catch (err) {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+      }
       console.error(err);
       renderError(`Request failed. If using Local mode, ensure your API is running at http://localhost:8080. Error: ${err.message || err}`);
       setStatus('Request failed.');
