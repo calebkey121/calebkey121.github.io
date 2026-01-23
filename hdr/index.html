@@ -27,7 +27,8 @@
   <div class="hint">
     Draw by clicking/dragging.
     <br/>Tips: use <span class="mono">Eraser</span> or hold <span class="mono">Shift</span> while drawing to erase. Try different brush sizes/softness.
-    <br/>Heads up: This demo is hosted on Cloud Run (free tier). Requests may experience noticeable startup latency due to server cold starts.
+    <br/>Wrong Predictions? Click “Random Training Example” to see what the models were trained on — and how your handwriting differs from it.
+    <br/>Long Waiting Times?: This demo is hosted on a free tier of Google Cloud Run. Requests may experience noticeable startup latency due to server cold starts.
   </div>
 
   <div class="row" style="margin-top:16px;">
@@ -82,7 +83,7 @@
       <div class="btns">
         <button id="mode">Mode: Draw</button>
         <button id="clear">Clear</button>
-        <button id="random">Random training example</button>
+        <button id="random">Random Training Example</button>
         <button id="predict">Predict</button>
       </div>
     </div>
