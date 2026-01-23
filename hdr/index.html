@@ -37,17 +37,17 @@
 
     <div class="controls">
       <label>
-        Brush radius (cells): <span id="radiusVal" class="mono">1</span>
+        Brush radius (cells): <span id="radiusVal" class="mono">2</span>
         <input id="radius" type="range" min="0" max="4" value="1" />
       </label>
 
       <label>
-        Softness (neighbor falloff): <span id="softVal" class="mono">0.55</span>
+        Softness (neighbor falloff): <span id="softVal" class="mono">0.75</span>
         <input id="soft" type="range" min="0" max="1" value="0.55" step="0.05" />
       </label>
 
       <label>
-        Strength (per stroke): <span id="strengthVal" class="mono">0.65</span>
+        Strength (per stroke): <span id="strengthVal" class="mono">0.20</span>
         <input id="strength" type="range" min="0.1" max="1" value="0.65" step="0.05" />
       </label>
 
@@ -62,12 +62,12 @@
       </label>
 
       <label>
-        Model subset (optional):
+        Model Selection:
         <select id="model">
-          <option value="" selected>All models (recommended)</option>
-          <option value="scratch:my_model">Scratch (scratch:my_model)</option>
-          <option value="keras">All Keras models (prefix: keras:)</option>
-          <option value="torch">All Torch models (prefix: torch:)</option>
+          <option value="all" selected>All Models (Expect 10–20 second wait time)</option>
+          <option value="scratch">Custom Scratch Model (Expect 10–20 second wait time)</option>
+          <option value="keras">TensorFlow Model (Expect 10–20 second wait time)</option>
+          <option value="torch">Torch Model (Expect 10–20 second wait time)</option>
         </select>
       </label>
 
@@ -293,29 +293,14 @@
   function getPayload() {
     const pixels = exportedPixels();
 
-    // modelEl is an optional subset selector.
-    // "" => run all models.
-    // "scratch:my_model" => single exact model id.
-    // "keras" or "torch" => subset by prefix.
-    const subset = (modelEl.value || "").trim();
-    let model_subset = undefined;
-    if (subset) {
-      if (subset === 'keras') {
-        // Prefix filter will be applied client-side by expanding from /models (optional later).
-        // For now, send a marker; server will ignore unknown ids, so we won't do that.
-        // Instead we treat this as "all" until we implement dynamic subset resolution.
-        model_subset = undefined;
-      } else if (subset === 'torch') {
-        model_subset = undefined;
-      } else {
-        model_subset = [subset];
-      }
-    }
+    // Always send a simple model selector string.
+    // Values: all | scratch | keras | torch
+    const model_select = (modelEl.value || 'all').trim() || 'all';
 
     return {
       pixels,
       invert: invertEl.checked ? true : undefined,
-      model_subset
+      model_select
     };
   }
 
