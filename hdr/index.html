@@ -95,10 +95,7 @@
   // ====== Config ======
   const W = 28, H = 28;
   // ====== API endpoint ======
-  const USE_LOCAL_API = false;
-  const LOCAL_API_BASE = 'http://localhost:8080';
-  const DEPLOYED_API_BASE = 'https://digit-api-798133670061.us-south1.run.app';
-  const API_BASE = USE_LOCAL_API ? LOCAL_API_BASE : DEPLOYED_API_BASE;
+  const API_BASE = 'https://athens.tailebb1c8.ts.net';
   const grid = new Uint8Array(W * H); // 0..255, row-major y*W + x
 
   // Display sizes (main canvas is bigger for easier editing)
