@@ -1,4 +1,4 @@
-const API = "https://athens.tailebb1c8.ts.net/";
+const API = "https://athens.tailebb1c8.ts.net";
 console.log("app.js loaded");
 
 const bookSelect = document.getElementById("bookSelect");
