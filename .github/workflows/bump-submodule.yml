@@ -27,7 +27,7 @@ jobs:
           cd ../..
           git add "external/$PROJECT"
 
-            - name: Commit and push if changed
+      - name: Commit and push submodule bump
         env:
           WEBSITE_PUSH_TOKEN: ${{ secrets.WEBSITE_PUSH_TOKEN }}
         run: |
