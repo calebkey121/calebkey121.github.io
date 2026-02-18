@@ -151,6 +151,10 @@ params:
             <a href="/hdr/" style="text-decoration:none; font-weight:500">Handwritten Digit Recognition</a>
             <span style="opacity:0.75"> — draw a digit, compare predictions across models</span>
           </li>
+          <li style="margin:0.25rem 0">
+            <a href="/chinese-reader/" style="text-decoration:none; font-weight:500">Chinese Reader</a>
+            <span style="opacity:0.75"> — interactive graded stories with audio, HSK tagging, and instant definitions</span>
+          </li>
         </ul>
       </div>
     image: /images/me/shed.jpg
@@ -170,7 +174,7 @@ params:
         - icon: fab fa-x-twitter
           url: https://x.com/CalebKey321846
         - icon: fab fa-linkedin
-          url: https://www.linkedin.com/in/caleb-key-503148192/
+          url: https://www.linkedin.com/in/caleb-key/
 
   # About
   about:
