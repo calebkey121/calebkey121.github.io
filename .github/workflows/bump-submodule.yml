@@ -1,0 +1,39 @@
+name: Bump submodule from project update
+
+on:
+  repository_dispatch:
+    types: ["project_site_updated"]
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Update the submodule to latest main
+        run: |
+          PROJECT="${{ github.event.client_payload.project }}"
+          cd "external/$PROJECT"
+          git fetch origin main
+          git checkout main
+          git pull --ff-only origin main
+          cd ../..
+          git add "external/$PROJECT"
+
+      - name: Commit and push if changed
+        run: |
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Bump ${{ github.event.client_payload.project }} submodule"
+          git push
