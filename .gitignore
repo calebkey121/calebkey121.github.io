@@ -51,3 +51,7 @@ resources/_gen/
 .hugo_build.lock
 
 repomix-output.*
+
+# generated from submodules by scripts/sync_project_sites.sh
+/static/hdr/
+/static/chinese-reader/

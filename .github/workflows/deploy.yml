@@ -29,6 +29,11 @@ jobs:
         with:
           hugo-version: "0.145.0"
           extended: true
+      
+      - name: Sync project sites into Hugo static
+        run: |
+          chmod +x scripts/sync_project_sites.sh
+          scripts/sync_project_sites.sh
 
       - name: Build
         run: hugo --minify
