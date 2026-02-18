@@ -30,6 +30,11 @@ markup:
 
 Menus:
   main:
+    #- identifier: hdr
+    #  name: Try the Demo
+    #  title: Handwritten Digit Recognition demo
+    #  url: /hdr/
+    #  weight: 10
     - identifier: blog
       name: Blog
       title: Blog posts
@@ -136,7 +141,18 @@ params:
     intro: "Hi, my name is"
     title: "Caleb Key."
     subtitle: "I build programs that think with math"
-    content: "I'm an AI engineer with a background in computer engineering and a deep interest in large language models, reinforcement learning, and algorithms that learn. I enjoy building intelligent systems that solve meaningful problems and push the boundaries of applied machine learning."
+    content: |-
+      I'm an AI engineer with a background in computer engineering and a deep interest in large language models, reinforcement learning, and algorithms that learn. I enjoy building intelligent systems that solve meaningful problems and push the boundaries of applied machine learning.
+
+      <div style="margin-top:1rem">
+        <div style="font-weight:600; margin-bottom:0.25rem">▶ Interactive Demos</div>
+        <ul style="list-style:none; padding-left:0; margin:0">
+          <li style="margin:0.25rem 0">
+            <a href="/hdr/" style="text-decoration:none; font-weight:500">Handwritten Digit Recognition</a>
+            <span style="opacity:0.75"> — draw a digit, compare predictions across models</span>
+          </li>
+        </ul>
+      </div>
     image: /images/me/shed.jpg
     bottomImage:
       enable: true
@@ -184,12 +200,12 @@ params:
       - job: "Cyber Capability Developer"
         company: "U.S. Air Force"
         companyUrl: "https://www.shadowsedge.mil"
-        date: "June 2022 - present"
+        date: "June 2022 - 2025"
         featuredLink:
           enable: true
           name: "View the project"
           url: "https://niprgpt.mil/"
-        content: "I am currently working as a software developer for the U.S. Air Force in San Antonio, TX. I am assigned to the 90th Cyber Operations Squadron at the <a href='https://www.shadowsedge.mil'><u>Shadow\'s Edge</u></a> software factory."
+        content: "Worked as a software developer for the U.S. Air Force in San Antonio, TX. Assigned to the 90th Cyber Operations Squadron at the <a href='https://www.shadowsedge.mil'><u>Shadow\'s Edge</u></a> software factory, contributing to AI-enabled tools, collaborative platforms, and optimization systems for operational use."
 
   #      - job: "Software Developer"
   #        company: "Amazon"
@@ -223,6 +239,13 @@ params:
       #     Extracurricular Activities
       #       - Lorem ipsum dolor sit amet consectetur adipisicing elit.
       #       - Tempora esse, eaque delectus nulla quo doloribus itaque expedita alias natus optio totam maxime nihil excepturi velit a animi laborum hic similique.
+      - title: "Master of Artificial Intelligence"
+        school:
+          name: "University of Texas at Austin"
+          url: "https://www.utexas.edu/"
+        date: "2025 - Present"
+        content: |-
+          Current graduate studies focus on machine learning, optimization, reinforcement learning, and large-scale AI systems, with an emphasis on both theoretical foundations and applied research.
       - title: "Bachelor of Science in Computer Engineering"
         school:
           name: "Texas A&M University"
@@ -247,9 +270,9 @@ params:
         date: "2014 - 2018"
         GPA: "5.0 out of 5.0"
         featuredLink:
-          name: Click here! then 2018 -> July 2018 -> Last dropdown
+          name: Valedictorian Announcement
           enable: true
-          url: "https://www.mabankisd.net/page/dis.photogalleryarchive"
+          url: "https://www.mabankisd.net/upload/page/0084/widgets/image/001533/ValSalPic2018.jpg"
 
   # Achievements
   #achievements:
@@ -297,11 +320,11 @@ params:
       #        url: https://twitter.com/intent/tweet?text=Check+it+out:&url=https%3A%2F%2Fgithub.com%2Fgurusabarish%2Fhugo-profile
       - title: Handwritten Digit Recognition
         content: Built a digit recognition system with a custom neural network from scratch, achieving 95% accuracy on the MNIST dataset. Included a Tkinter-based UI for real-time digit drawing and inference.
-        image: /images/projects/hdr.png
-        cardLink: /blogs/hdr
+        image: /images/projects/hdr_v1.png
+        cardLink: /hdr/
         featured:
-          name: View Code
-          link: https://github.com/calebkey121/handwritten-digit-recognition
+          name: Try the Demo
+          link: /hdr/
         badges:
           - "Python"
           - "Neural Networks"
@@ -311,7 +334,7 @@ params:
             url: https://github.com/calebkey121/handwritten-digit-recognition
           - icon: fas fa-newspaper
             url: /blogs/hdr
-          - icon: fas fa-pen
+          - icon: fas fa-play
             url: /hdr/
 
       - title: CPU Cache Optimization via Genetic Algorithms

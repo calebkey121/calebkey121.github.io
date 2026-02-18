@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>28x28 Grid Digit Editor</title>
+  <title>Handwritten Digit Recognition</title>
   <style>
     :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     body { margin: 0; padding: 24px; }
@@ -23,16 +23,17 @@
 </head>
 <body>
   <main class="container">
-  <h2>28×28 Cell Grid Digit Editor</h2>
+  <h2>Handwritten Digit Recognition</h2>
   <div class="hint">
-    Draw by clicking/dragging. Each cell is a pixel you will send to the server.
+    Draw by clicking/dragging.
     <br/>Tips: use <span class="mono">Eraser</span> or hold <span class="mono">Shift</span> while drawing to erase. Try different brush sizes/softness.
+    <br/>Wrong Predictions? Click “Random Training Example” to see what the models were trained on — and how your handwriting differs from it.
   </div>
 
   <div class="row" style="margin-top:16px;">
     <div class="panel">
       <canvas id="grid" width="560" height="560"></canvas>
-      <div class="hint">Editable 28×28 grid (each cell is sent directly to the model).</div>
+      <div class="hint">Editable 28×28 grid.</div>
     </div>
 
     <div class="controls">
@@ -64,10 +65,10 @@
       <label>
         Model Selection:
         <select id="model">
-          <option value="all" selected>All Models (Expect 10–20 second wait time)</option>
-          <option value="scratch">Custom Scratch Model (Expect 10–20 second wait time)</option>
-          <option value="keras">TensorFlow Model (Expect 10–20 second wait time)</option>
-          <option value="torch">Torch Model (Expect 10–20 second wait time)</option>
+          <option value="all" selected>All Models</option>
+          <option value="scratch">Custom Scratch Model</option>
+          <option value="keras">TensorFlow Model</option>
+          <option value="torch">Torch Model</option>
         </select>
       </label>
 
@@ -81,7 +82,7 @@
       <div class="btns">
         <button id="mode">Mode: Draw</button>
         <button id="clear">Clear</button>
-        <button id="random">Random test</button>
+        <button id="random">Random Training Example</button>
         <button id="predict">Predict</button>
       </div>
     </div>
@@ -93,10 +94,7 @@
   // ====== Config ======
   const W = 28, H = 28;
   // ====== API endpoint ======
-  const USE_LOCAL_API = false;
-  const LOCAL_API_BASE = 'http://localhost:8080';
-  const DEPLOYED_API_BASE = 'https://digit-api-798133670061.us-south1.run.app';
-  const API_BASE = USE_LOCAL_API ? LOCAL_API_BASE : DEPLOYED_API_BASE;
+  const API_BASE = 'https://athens.tailebb1c8.ts.net/hdr/';
   const grid = new Uint8Array(W * H); // 0..255, row-major y*W + x
 
   // Display sizes (main canvas is bigger for easier editing)
@@ -123,6 +121,43 @@
   const statusEl = document.getElementById('status');
 
   const resultEl = document.getElementById('result');
+
+  // ====== Training examples (MNIST subset) ======
+  // Expected file format (to be generated later):
+  // {
+  //   "examples": [
+  //     {"label": 5, "pixels": [0..255 x784]},
+  //     ...
+  //   ]
+  // }
+  let MNIST = null;
+  async function loadMnistExamples() {
+    if (MNIST) return MNIST;
+    try {
+      const resp = await fetch('./mnist_examples.json', { cache: 'no-cache' });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      if (!data || !Array.isArray(data.examples)) {
+        throw new Error('Invalid mnist_examples.json format (missing examples array).');
+      }
+      MNIST = data.examples;
+      return MNIST;
+    } catch (e) {
+      console.error(e);
+      MNIST = null;
+      return null;
+    }
+  }
+
+  function setGridFromPixels(pixels) {
+    if (!Array.isArray(pixels) || pixels.length !== W * H) {
+      throw new Error(`pixels must be an array of length ${W * H}`);
+    }
+    for (let i = 0; i < W * H; i++) {
+      const v = pixels[i] | 0;
+      grid[i] = v < 0 ? 0 : (v > 255 ? 255 : v);
+    }
+  }
 
   let isErasing = false;
 
@@ -367,15 +402,25 @@
     render();
   });
 
-  randomBtn.addEventListener('click', () => {
-    // quick test pattern that looks vaguely digit-like sometimes
-    grid.fill(0);
-    for (let i = 0; i < 220; i++) {
-      const x = Math.floor(Math.random() * W);
-      const y = Math.floor(Math.random() * H);
-      grid[idx(x,y)] = Math.floor(120 + Math.random() * 135);
+  randomBtn.addEventListener('click', async () => {
+    setStatus('Loading training examples…');
+    const examples = await loadMnistExamples();
+    if (!examples || examples.length === 0) {
+      setStatus('Training examples not found. Add mnist_examples.json next to this page.');
+      renderError('Training examples not found. Expected ./mnist_examples.json with {"examples":[{"label":0,"pixels":[...784]}]}');
+      return;
     }
-    render();
+
+    const ex = examples[Math.floor(Math.random() * examples.length)];
+    try {
+      setGridFromPixels(ex.pixels);
+      render();
+      setStatus(`Loaded training example (label ${ex.label}).`);
+    } catch (e) {
+      console.error(e);
+      setStatus('Failed to load training example.');
+      renderError(`Failed to load training example: ${e.message || e}`);
+    }
   });
 
   predictBtn.addEventListener('click', async () => {
