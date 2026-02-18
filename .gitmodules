@@ -1,3 +1,9 @@
 [submodule "themes/hugo-profile"]
 	path = themes/hugo-profile
 	url = https://github.com/gurusabarish/hugo-profile
+[submodule "external/hdr"]
+	path = external/hdr
+	url = https://github.com/calebkey121/handwritten-digit-recognition.git
+[submodule "external/chinese-reader"]
+	path = external/chinese-reader
+	url = git@github.com:calebkey121/chinese-reader.git
