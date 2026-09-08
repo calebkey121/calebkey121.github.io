@@ -52,6 +52,5 @@ resources/_gen/
 
 repomix-output.*
 
-# generated from submodules by scripts/sync_project_sites.sh
+# generated from project submodules by scripts/sync_project_sites.sh
 /static/hdr/
-/static/chinese-reader/

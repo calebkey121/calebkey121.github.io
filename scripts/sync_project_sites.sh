@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-rm -rf static/hdr static/chinese-reader
-mkdir -p static/hdr static/chinese-reader
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+HDR_DIR="${HDR_REPO:-$PROJECT_DIR/external/hdr}"
 
-rsync -a --delete external/hdr/site/public/ static/hdr/
-rsync -a --delete external/chinese-reader/site/public/ static/chinese-reader/
+if [[ ! -f "$HDR_DIR/site/public/index.html" ]]; then
+  echo "HDR frontend build not found in $HDR_DIR/site/public" >&2
+  exit 1
+fi
+
+rm -rf "$PROJECT_DIR/static/hdr"
+mkdir -p "$PROJECT_DIR/static/hdr"
+rsync -a --delete "$HDR_DIR/site/public/" "$PROJECT_DIR/static/hdr/"
